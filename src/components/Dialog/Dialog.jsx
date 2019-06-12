@@ -2,26 +2,25 @@
 /* eslint-disable react/button-has-type */
 import React, { useState, useEffect, useContext } from 'react';
 import { connect } from 'react-redux';
-import Message from '../Message';
-import ConnectionContext from '../../helpers/Context/ConnectionContext';
 import {
-  Container, Input, InputContainer, List, Button
-} from './Dialog.styled';
+  List, Avatar, Input, Button
+} from 'antd';
+import ConnectionContext from '../../helpers/Context/ConnectionContext';
+import { Container, InputContainer } from './Dialog.styled';
 import { getDialogs } from '../../redux/actions/dialogs.action';
 import { receiveMessage } from '../../redux/actions/receiveMessage.action';
 
 import { dialogSelector } from '../../redux/selectors';
 
-
 function Dialog(props) {
-  const [myMessage, setMyMessage] = useState('');
+  const [inputMessage, setInputMessage] = useState('');
   const context = useContext(ConnectionContext);
 
   const getTargetId = () => parseInt(props.match.params.id, 10);
 
   const sendMessage = () => {
     const id = getTargetId();
-    context.invoke('SendDirect', id, myMessage).then(() => setMyMessage(''));
+    context.invoke('SendDirect', id, inputMessage).then(() => setInputMessage(''));
   };
 
   useEffect(() => {
@@ -41,15 +40,21 @@ function Dialog(props) {
 
   return (
     <Container>
-      <List>
-        {props.dialog.map((x, i) => (
-          <li key={i}>
-            <Message message={x.text} />
-          </li>
-        ))}
-      </List>
+      <List style={{ overflowY: 'auto' }}
+        itemLayout="horizontal"
+        dataSource={props.dialog}
+        renderItem={item => (
+          <List.Item>
+            <List.Item.Meta
+              avatar={<Avatar src={item.pictureUrl} />}
+              title={<a href="https://ant.design">{item.name}</a>}
+              description={item.text}
+            />
+          </List.Item>
+        )}
+      />
       <InputContainer>
-        <Input id="dialogInput" type="text" value={myMessage} onChange={e => setMyMessage(e.target.value)} />
+        <Input id="dialogInput" type="text" value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
         <Button onClick={sendMessage}>Send</Button>
       </InputContainer>
     </Container>

@@ -1,9 +1,10 @@
 /* eslint-disable react/button-has-type */
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 import AuthContext from '../../helpers/Context/AuthContext';
 import ConnectionContext from '../../helpers/Context/ConnectionContext';
-import { Button, Outer } from './Navbar.styled.js';
+import { Outer } from './Navbar.styled.js';
 
 export default function Navbar() {
   const auth = useContext(AuthContext);
@@ -26,7 +27,7 @@ export default function Navbar() {
       <Button onClick={() => login()}>Login</Button>
       <Button onClick={() => logout()}>logout</Button>
       <Button onClick={() => connect()}>Connect</Button>
-      <Link to="/dialogs">Dialogs</Link>
+      <Link to="/dialogs"><Button>Dialogs</Button></Link>
     </Outer>
   );
 }

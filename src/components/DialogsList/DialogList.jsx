@@ -3,21 +3,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Outer } from './DialogList.styled';
 import { getDialogList } from '../../redux/actions/dialogList.action';
-import HttpClient from '../../services/helpers/HttpClient';
 import AuthContext from '../../helpers/Context/AuthContext';
 
 function DialogList(props) {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    props.getDialogList();
+    props.getDialogList(auth.getAccessToken());
   }, []);
-
-  useEffect(() => {
-    const client = new HttpClient(auth.getAccessToken());
-
-    client.call('http://10.26.7.68:4000/api/user/details').then(result => console.log(result.json()));
-  });
 
   return (
     <div>

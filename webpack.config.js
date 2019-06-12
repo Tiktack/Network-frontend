@@ -1,6 +1,10 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fs = require('fs');
+const lessToJs = require('less-vars-to-js');
+
+const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/public/ant-theme-vars.less'), 'utf8'));
 
 module.exports = {
   entry: { app: './src/index.js' },
@@ -20,6 +24,20 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['eslint-loader']
+      },
+      {
+        test: /\.less$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+              modifyVars: themeVariables
+            }
+          }
+        ]
       }
     ]
   },
@@ -29,7 +47,7 @@ module.exports = {
     // Creating index.html when build for production
     new HtmlWebpackPlugin({
       hash: true,
-      template: './src/index.html'
+      template: './src/public/index.html'
     })
   ],
   devServer: {
