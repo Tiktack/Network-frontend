@@ -1,9 +1,11 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { notification } from 'antd';
-import ConnectionContext from '../helpers/Context/ConnectionContext';
+import { useSelector } from 'react-redux';
+// import ConnectionContext from '../helpers/Context/ConnectionContext';
 
 export const useMessageNotification = () => {
-  const context = useContext(ConnectionContext);
+  // const context = useContext(ConnectionContext);
+  const connection = useSelector(state => state.connection);
 
   const openNotification = (message) => {
     notification.open({
@@ -13,10 +15,11 @@ export const useMessageNotification = () => {
   };
 
   useEffect(() => {
-    context.on('UpdateDialog', (message) => {
+    console.log(connection);
+    connection.on('UpdateDialog', (message) => {
       openNotification(message);
     });
 
-    return () => context.off('UpdateDialog');
-  }, []);
+    return () => connection.off('UpdateDialog');
+  });
 };

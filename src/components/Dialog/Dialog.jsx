@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {
   List, Avatar, Input, Button
 } from 'antd';
-import ConnectionContext from '../../helpers/Context/ConnectionContext';
+// import ConnectionContext from '../../helpers/Context/ConnectionContext';
 import { InputContainer, StyledList } from './Dialog.styled';
 import { getDialogs } from '../../redux/actions/dialogs.action';
 import { receiveMessage } from '../../redux/actions/receiveMessage.action';
@@ -14,28 +14,28 @@ import { dialogSelector } from '../../redux/selectors';
 
 function Dialog(props) {
   const [inputMessage, setInputMessage] = useState('');
-  const context = useContext(ConnectionContext);
+  // const context = useContext(ConnectionContext);
 
   const getTargetId = () => parseInt(props.match.params.id, 10);
 
   const sendMessage = () => {
     const id = getTargetId();
-    context.invoke('SendDirect', id, inputMessage).then(() => setInputMessage(''));
+    props.connection.invoke('SendDirect', id, inputMessage).then(() => setInputMessage(''));
   };
 
   useEffect(() => {
-    context.on('UpdateDialog', message => props.receiveMessage(message, props.match.params.id));
+    props.connection.on('UpdateDialog', message => props.receiveMessage(message, props.match.params.id));
 
-    return () => context.off('UpdateDialog');
+    return () => props.connection.off('UpdateDialog');
   }, []);
 
   useEffect(() => {
-    context.on('GetDialogMessages', dialogMessages => props.getDialogs(dialogMessages, props.match.params.id));
+    props.connection.on('GetDialogMessages', dialogMessages => props.getDialogs(dialogMessages, props.match.params.id));
 
     const id = getTargetId();
-    context.invoke('GetDialogMessages', id).then(() => context.off('GetDialogMessages'));
+    props.connection.invoke('GetDialogMessages', id).then(() => props.connection.off('GetDialogMessages'));
 
-    return () => context.off('GetDialogMessages');
+    return () => props.connection.off('GetDialogMessages');
   }, []);
 
   useEffect(() => {
@@ -71,7 +71,8 @@ function Dialog(props) {
   );
 }
 const mapStateToProps = (state, ownProps) => ({
-  dialog: dialogSelector(state, ownProps.match.params.id)
+  dialog: dialogSelector(state, ownProps.match.params.id),
+  connection: state.connection
 });
 
 const mapDispatchToProps = { getDialogs, receiveMessage };
