@@ -6,7 +6,7 @@ import {
   List, Avatar, Input, Button
 } from 'antd';
 import ConnectionContext from '../../helpers/Context/ConnectionContext';
-import { Container, InputContainer } from './Dialog.styled';
+import { InputContainer, StyledList } from './Dialog.styled';
 import { getDialogs } from '../../redux/actions/dialogs.action';
 import { receiveMessage } from '../../redux/actions/receiveMessage.action';
 
@@ -38,18 +38,28 @@ function Dialog(props) {
     return () => context.off('GetDialogMessages');
   }, []);
 
+  useEffect(() => {
+    const handleType = (e) => {
+      if (e.keyCode === 13) {
+        sendMessage();
+      }
+    };
+
+    const input = document.getElementById('dialogInput');
+    input.addEventListener('keydown', handleType);
+    return () => {
+      input.removeEventListener('keydown', handleType);
+    };
+  });
+
   return (
-    <Container>
-      <List style={{ overflowY: 'auto' }}
+    <>
+      <StyledList
         itemLayout="horizontal"
         dataSource={props.dialog}
         renderItem={item => (
           <List.Item>
-            <List.Item.Meta
-              avatar={<Avatar src={item.pictureUrl} />}
-              title={<a href="https://ant.design">{item.name}</a>}
-              description={item.text}
-            />
+            <List.Item.Meta avatar={<Avatar src={item.pictureUrl} />} title={item.name} description={item.text} />
           </List.Item>
         )}
       />
@@ -57,7 +67,7 @@ function Dialog(props) {
         <Input id="dialogInput" type="text" value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
         <Button onClick={sendMessage}>Send</Button>
       </InputContainer>
-    </Container>
+    </>
   );
 }
 const mapStateToProps = (state, ownProps) => ({

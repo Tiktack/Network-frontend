@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import auth0 from 'auth0-js';
 import { AUTH_CONFIG } from './auth0-variables';
 
@@ -15,8 +16,8 @@ export default class Auth {
     clientID: AUTH_CONFIG.clientId,
     redirectUri: AUTH_CONFIG.callbackUrl,
     audience: AUTH_CONFIG.apiUrl,
-    responseType: 'token id_token',
-    scope: 'openid profile email read:messages'
+    responseType: 'token',
+    scope: 'openid profile email'
   });
 
   login = () => {
@@ -27,12 +28,15 @@ export default class Auth {
     props.history.push('/');
   };
 
-  handleAuthentication = (props) => {
+  handleAuthentication = (loginWithExternals) => {
     this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult, props);
-      } else if (err) {
-        this.redirectToTarget(props);
+      if (authResult && authResult.accessToken) {
+        this.setSession(authResult);
+        loginWithExternals(authResult.accessToken);
+      }
+      if (err) {
+        console.log(err);
+        // this.redirectToTarget(props);
       }
     });
   };
@@ -41,18 +45,10 @@ export default class Auth {
 
   getIdToken = () => this.idToken;
 
-  setSession = (authResult, target) => {
-    // Set isLoggedIn flag in localStorage
-    localStorage.setItem('isLoggedIn', 'true');
-
-    // Set the time that the access token will expire at
+  setSession = (authResult) => {
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
     this.accessToken = authResult.accessToken;
-    this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
-
-    // redirect to start
-    this.redirectToTarget(target);
   };
 
   renewSession = () => {
@@ -77,14 +73,7 @@ export default class Auth {
   logout = () => {
     // Remove tokens and expiry time
     this.accessToken = null;
-    this.idToken = null;
     this.expiresAt = 0;
-
-    // Remove user profile
-    this.userProfile = null;
-
-    // Remove isLoggedIn flag from localStorage
-    localStorage.removeItem('isLoggedIn');
 
     this.auth0.logout({
       returnTo: window.location.origin
