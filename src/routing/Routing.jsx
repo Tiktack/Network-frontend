@@ -12,8 +12,7 @@ import AuthContext from '../helpers/Context/AuthContext';
 import { useMessageNotification } from '../hooks/useMessageNotification';
 import WrappedNormalLoginForm from '../pages/SignIn';
 import { loginWithExternals } from '../redux/actions/autentication.action';
-import { WrappedRegistrationForm } from '../pages/EditProfile/EditProfile.jsx';
-
+import WrappedEditProfileForm from '../pages/EditProfile';
 
 const Content = styled.div`
   margin-top: 3vh;
@@ -51,7 +50,7 @@ function Routing(props) {
           />
           <Route exact path="/dialog/:id" component={Dialog} />
           <Route exact path="/login" component={WrappedNormalLoginForm} />
-          <Route exact path="/editprofile" component={WrappedRegistrationForm} />
+          <Route exact path="/editprofile" component={WrappedEditProfileForm} />
         </Switch>
       </Content>
     </ConnectedRouter>
