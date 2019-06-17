@@ -2,20 +2,21 @@ import React, { useContext } from 'react';
 import {
   Form, Icon, Input, Checkbox
 } from 'antd';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, StyledButton, StyledForm } from './SignIn.styled';
 import AuthContext from '../../helpers/Context/AuthContext';
 import { login } from '../../redux/actions/autentication.action';
 
 const SignIn = (props) => {
   const auth = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
         const { username, password } = values;
-        props.login(username, password);
+        dispatch(login(username, password));
       }
     });
   };
@@ -57,9 +58,4 @@ const SignIn = (props) => {
 };
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(SignIn);
 
-const mapDispatchToProps = { login };
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(WrappedNormalLoginForm);
+export default WrappedNormalLoginForm;

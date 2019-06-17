@@ -1,18 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ConnectedRouter } from 'connected-react-router';
 import { Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import DialogList from '../components/DialogsList';
-import Dialog from '../components/Dialog';
+import Messages from '../pages/Messages';
 import { history } from './history';
-import Home from '../components/Home';
 import Navbar from '../components/Navbar';
-import AuthContext from '../helpers/Context/AuthContext';
 import { useMessageNotification } from '../hooks/useMessageNotification';
-import WrappedNormalLoginForm from '../pages/SignIn';
-import { loginWithExternals } from '../redux/actions/autentication.action';
+import WrappedNormalLoginForm from '../pages/Login';
 import WrappedEditProfileForm from '../pages/EditProfile';
+import useAuthentication from '../hooks/useAuthentication';
+import Dialogs from '../pages/Dialogs';
 
 const Content = styled.div`
   margin-top: 3vh;
@@ -22,33 +19,18 @@ const Content = styled.div`
   height: 85vh;
 `;
 
-function Routing(props) {
-  const auth = useContext(AuthContext);
-
+export default function Routing() {
   useMessageNotification();
 
-  const handleAuthentication = (propsFunction, login) => {
-    if (/access_token|error/.test(propsFunction.location.hash)) {
-      auth.handleAuthentication(login);
-    }
-  };
+  useAuthentication();
 
   return (
     <ConnectedRouter history={history}>
       <Navbar />
       <Content>
         <Switch>
-          <Route exact path="/" render={() => <Home />} />
-          <Route exact path="/dialogs" render={() => <DialogList />} />
-          <Route
-            exact
-            path="/callback"
-            render={(x) => {
-              handleAuthentication(x, props.loginWithExternals);
-              return <div>Loading</div>;
-            }}
-          />
-          <Route exact path="/dialog/:id" component={Dialog} />
+          <Route exact path="/dialogs" component={Dialogs} />
+          <Route exact path="/dialog/:id" component={Messages} />
           <Route exact path="/login" component={WrappedNormalLoginForm} />
           <Route exact path="/editprofile" component={WrappedEditProfileForm} />
         </Switch>
@@ -56,10 +38,3 @@ function Routing(props) {
     </ConnectedRouter>
   );
 }
-
-const mapDispatchToProps = { loginWithExternals };
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Routing);

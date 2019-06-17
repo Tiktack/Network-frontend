@@ -36,7 +36,7 @@ async function login(username, password) {
   return user;
 }
 
-async function loginWithAccesToken(accessToken) {
+async function loginWithGoogleAccesToken(accessToken) {
   const requestOptions = {
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` }
   };
@@ -45,6 +45,17 @@ async function loginWithAccesToken(accessToken) {
   const user = await handleResponse(response);
   // store user details and jwt token in local storage to keep user logged in between page refreshes
   localStorage.setItem('token', user.token);
+  return user;
+}
+
+async function loginWithAccessToken(accessToken) {
+  const requestOptions = {
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` }
+  };
+
+  const response = await fetch('http://10.26.7.68:4000/api/user/authenticateWithToken', requestOptions);
+  const user = await handleResponse(response);
+
   return user;
 }
 
@@ -83,7 +94,8 @@ async function _delete(id) {
 
 export const userService = {
   login,
-  loginWithAccesToken,
+  loginWithGoogleAccesToken,
+  loginWithAccessToken,
   logout,
   register,
   update,

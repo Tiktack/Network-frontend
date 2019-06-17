@@ -7,8 +7,9 @@ const startSignalRConnection = connection => connection
   .catch(err => console.error('SignalR Connection Error: ', err));
 
 const initialStateObject = {
-  on: () => console.log,
-  off: () => console.log
+  on: () => {},
+  off: () => {},
+  invoke: () => {}
 };
 
 export const connection = (state = initialStateObject, action) => {

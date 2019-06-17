@@ -34,16 +34,14 @@ export default class Auth {
         this.setSession(authResult);
         loginWithExternals(authResult.accessToken);
       }
-      if (err) {
-        console.log(err);
-        // this.redirectToTarget(props);
-      }
     });
   };
 
   getAccessToken = () => this.accessToken;
 
   getIdToken = () => this.idToken;
+
+  getAuth = () => this.auth0;
 
   setSession = (authResult) => {
     const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
@@ -58,15 +56,6 @@ export default class Auth {
       } else if (err) {
         this.logout();
       }
-    });
-  };
-
-  getProfile = (cb) => {
-    this.auth0.client.userInfo(this.accessToken, (err, profile) => {
-      if (profile) {
-        this.userProfile = profile;
-      }
-      cb(err, profile);
     });
   };
 

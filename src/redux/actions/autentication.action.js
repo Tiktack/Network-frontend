@@ -16,7 +16,7 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const loginWithExternals = accessToken => (dispatch) => {
-  userService.loginWithAccesToken(accessToken).then(
+  userService.loginWithGoogleAccesToken(accessToken).then(
     (user) => {
       dispatch(success(user));
       history.push('/');
@@ -25,4 +25,11 @@ export const loginWithExternals = accessToken => (dispatch) => {
   );
 };
 
-export const handleAuthenticationAuth = () => {};
+export const loginWithAccessToken = accessToken => (dispatch) => {
+  userService.loginWithAccessToken(accessToken).then(
+    (user) => {
+      dispatch(success(user));
+    },
+    error => dispatch(failure(error.toString()))
+  );
+};
