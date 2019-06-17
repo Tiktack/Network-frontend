@@ -18,7 +18,3 @@ export const StyledList = styled(ListAntd)`
   height: 100%;
   margin-bottom: 10px;
 `;
-
-export const StyledListItemMeta = styled(ListAntd.Item.Meta)`
-  color: ${props => (props.delivered ? 'red' : 'green')};
-`;

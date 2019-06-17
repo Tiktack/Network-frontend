@@ -11,6 +11,7 @@ export default function Navbar() {
   const [current, setCurrent] = useState('login');
 
   const logout = () => {
+    localStorage.removeItem('token');
     auth.logout();
   };
 

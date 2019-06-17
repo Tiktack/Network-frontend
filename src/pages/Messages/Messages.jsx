@@ -5,9 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   List, Avatar, Input, Button
 } from 'antd';
-import { InputContainer, StyledList, StyledListItemMeta } from './Messages.styled';
+import { InputContainer, StyledList } from './Messages.styled';
 import { getDialogs } from '../../redux/actions/dialogs.action';
-import { addMessage } from '../../redux/actions/receiveMessage.action';
 
 import { dialogSelector } from '../../redux/selectors';
 import useHandleInputEnter from '../../hooks/useHandleInputEnter';
@@ -26,12 +25,6 @@ export default function Messages(props) {
   };
 
   useEffect(() => {
-    connection.on('UpdateDialog', message => dispatch(addMessage(message, props.match.params.id)));
-
-    return () => connection.off('UpdateDialog');
-  }, []);
-
-  useEffect(() => {
     connection.on('GetDialogMessages', dialogMessages => dispatch(getDialogs(dialogMessages, props.match.params.id)));
 
     const id = getTargetId();
@@ -42,12 +35,6 @@ export default function Messages(props) {
 
   useHandleInputEnter('dialogInput', sendMessage);
 
-  useEffect(() => {
-    connection.on('MessageSent', message => dispatch(addMessage(message, props.match.params.id)));
-
-    return () => connection.off('MessageSent');
-  });
-
   return (
     <>
       <StyledList
@@ -55,12 +42,7 @@ export default function Messages(props) {
         dataSource={dialog}
         renderItem={item => (
           <List.Item>
-            <StyledListItemMeta
-              avatar={<Avatar src={item.pictureUrl} />}
-              title={item.name}
-              description={item.text}
-              delivered={!!item.timestamp}
-            />
+            <List.Item.Meta avatar={<Avatar src={item.pictureUrl} />} title={item.name} description={item.text} />
           </List.Item>
         )}
       />

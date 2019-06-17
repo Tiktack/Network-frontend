@@ -1,10 +1,9 @@
 import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { LOGIN_SUCCESS } from '../actionTypes/index';
 
-const startSignalRConnection = connection => connection
-  .start()
-  .then(() => console.info('SignalR Connected'))
-  .catch(err => console.error('SignalR Connection Error: ', err));
+const startSignalRConnection = connection => connection.start().catch((err) => {
+  throw new Error(err);
+});
 
 const initialStateObject = {
   on: () => {},
