@@ -1,6 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React, { useContext, useState } from 'react';
 import { Menu, Icon } from 'antd';
+import { useSelector } from 'react-redux';
 import AuthContext from '../../helpers/Context/AuthContext';
 import { Outer, StyledLink } from './Navbar.styled.js';
 
@@ -9,6 +10,7 @@ const { SubMenu } = Menu;
 export default function Navbar() {
   const auth = useContext(AuthContext);
   const [current, setCurrent] = useState('login');
+  const user = useSelector(state => state.user);
 
   const logout = () => {
     localStorage.removeItem('token');
@@ -22,10 +24,12 @@ export default function Navbar() {
   return (
     <Outer>
       <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-        <Menu.Item key="login">
-          <Icon type="login" />
-          <StyledLink to="/login">Login</StyledLink>
-        </Menu.Item>
+        {!user.id && (
+          <Menu.Item key="login">
+            <Icon type="login" />
+            <StyledLink to="/login">Login</StyledLink>
+          </Menu.Item>
+        )}
         <Menu.Item key="dialogs">
           <Icon type="contacts" />
           <StyledLink to="/dialogs">Dialogs</StyledLink>

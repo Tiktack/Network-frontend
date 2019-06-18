@@ -1,12 +1,12 @@
 import { LOGIN_SUCCESS } from '../actionTypes/index';
-import { userService } from '../../services/user.service';
+import { authenticationService } from '../../services/authentication.service';
 import { history } from '../../routing/history';
 
 const success = user => ({ type: LOGIN_SUCCESS, payload: user });
 const failure = error => ({ type: LOGIN_FAILURE, payload: error });
 
 export const login = (username, password) => (dispatch) => {
-  userService.login(username, password).then(
+  authenticationService.login(username, password).then(
     (user) => {
       dispatch(success(user));
       history.push('/');
@@ -16,7 +16,7 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const loginWithExternals = accessToken => (dispatch) => {
-  userService.loginWithGoogleAccesToken(accessToken).then(
+  authenticationService.loginWithGoogleAccesToken(accessToken).then(
     (user) => {
       dispatch(success(user));
       history.push('/');
@@ -26,7 +26,7 @@ export const loginWithExternals = accessToken => (dispatch) => {
 };
 
 export const loginWithAccessToken = accessToken => (dispatch) => {
-  userService.loginWithAccessToken(accessToken).then(
+  authenticationService.loginWithAccessToken(accessToken).then(
     (user) => {
       dispatch(success(user));
     },
