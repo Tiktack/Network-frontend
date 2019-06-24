@@ -1,0 +1,127 @@
+$application-font-size-2x: 24px;
+$application-font-size-big: 16px;
+$application-font-size-bigger: 14px;
+$application-font-size: 13px;
+$application-font-size-smaller: 11px;
+$application-font-family: 'Lucida Grande', 'Segoe UI', sans-serif;
+
+/* System theme */
+$application-alert-background-color:  #9B4444;
+$application-background-color-darker: #1c1f26;
+$application-background-color:        #2b303b;
+$application-text-color-darken:       #666a70;
+$application-text-color-highlight:    #f0f1f5;
+$application-text-color:              #c0c5cE;
+$application-background-color-dark: darken($application-background-color-darker, 5%);
+$overlay-background-color: rgba(101, 115, 127, 0.3);
+
+$blue:              #2199e8;
+$dark-green:        #3c763d;
+$dark-turquoise:    #054857;
+$gray:              #2e353c;
+$light-gray:        #9d9d9d;
+$light-green:       #3adb76;
+$lighter-green:     #90ee90;
+$red:               #ec5840;
+$dark-red:          #a94442;
+$violet:            #421C52;
+$white:             #ffffff;
+$yellow:            #FFAE00;
+
+$content-editor-build-failed-background-color:    #ebccd1;
+$content-editor-build-failed-text-color:          $dark-red;
+$content-editor-build-progress-background-color:  #fcf8e3;
+$content-editor-build-progress-text-color:        #8a6d3b;
+$content-editor-build-success-background-color:   #d6e9c6;
+$content-editor-info-background-color:            #d9edf7;
+$content-editor-info-text-color:                  #31708f;
+
+$content-editor-build-success-text-color: $dark-green;
+
+/* Content editor */
+$content-editor-lock-warning-text-color: $application-text-color-highlight;
+$content-editor-lock-warning-background-color: $application-alert-background-color;
+
+$text-color: $application-text-color;
+
+/* Scrollbar */
+$scrollbar-track-color: $application-background-color-darker;
+$scrollbar-thumb-color: $application-text-color;
+
+/* Button */
+$button-background-color: $application-background-color;
+
+/* Input */
+$input-background-color: $application-background-color;
+$input-border-color--focused: $dark-turquoise;
+$input-border-color--invalid: $application-alert-background-color;
+$input-border-color: $gray;
+$input-color-placeholder: $application-text-color-darken;
+$input-color: $application-text-color;
+
+/* Checkbox */
+$checkbox-color--disabled: $application-text-color-darken;
+
+/* Publishing */
+$publishing-brand-background-color: $application-background-color-darker;
+$publishing-actions-background-color: $application-background-color-darker;
+$publishing-container-disabled-color: $application-text-color-darken;
+
+/* Splashscreen */
+$splashscreen-background-color: $application-background-color;
+
+/* Navigation colors */
+$navigation-text-color: $application-text-color;
+$navigation-background-color: $application-background-color-dark;
+$navigation-item-hover-background-color: $application-background-color-darker;
+$navigation-item-hover-color: $application-text-color-highlight;
+
+/* Workspace colors */
+$workspace-background-color: $application-background-color;
+$workspace-pane-background-color: $application-background-color;
+$workspace-panel-background-color: $application-background-color-darker;
+$workspace-resizer-background-color: $application-background-color-darker;
+$workspace-resizer-anchor-background-color: $application-text-color;
+
+/* Content browser */
+$content-browser-category-font-size: $application-font-size;
+$content-tree-node-hover-text-color: $application-text-color-highlight;
+$content-tree-node-active-text-color: $application-text-color-highlight;
+
+/* Content tabs */
+$content-tabs-background-color: $application-background-color-darker;
+$tab-background-color: lighten($application-background-color-darker, 4%);
+
+$content-tabs-tab-active-background-color: lighten($application-background-color, 3%);
+$content-tabs-tab-active-color: $application-text-color-highlight;
+
+/* Dropdown */
+$dropdown-background-color: $application-background-color;
+
+$dropdown-text-color: $application-text-color;
+$dropdown-active-text-color: $application-text-color-highlight;
+
+$dropdown-item-text-color: $application-text-color;
+$dropdown-item-selected-text-color: $application-text-color-highlight;
+$dropdown-item-empty-text-color: $application-text-color-darken;
+
+$dropdown-item-background-color: $dropdown-background-color;
+$dropdown-item-selected-background-color: $application-background-color-darker;
+$dropdown-item-hover-background-color: $application-background-color-darker;
+
+/* Code editor */
+$code-editor-border-color: $content-tabs-tab-active-background-color;
+
+/* Content editor actions */
+$content-editor-actions-background-color: $content-tabs-tab-active-background-color;
+$content-editor-actions-text-color: $application-text-color;
+$content-editor-actions-hover-text-color: $application-text-color-highlight;
+
+/* Publication status colors */
+$publication-item-status-created: $light-green;
+$publication-item-status-deleted: $red;
+$publication-item-status-modified: $blue;
+
+/* Options tabs */
+$options-tabs-background: $application-background-color-darker;
+$options-tab-body-background: $application-background-color;
