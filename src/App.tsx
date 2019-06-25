@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
@@ -19,6 +19,7 @@ const Dark = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 
 const App = () => (
   <Dark>

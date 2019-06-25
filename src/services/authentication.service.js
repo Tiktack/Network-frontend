@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 
-import { API_URL_BASE, AUTHENTICATION_ENDPOINT } from './constants';
+import { API_URL_BASE, AUTHENTICATION_ENDPOINT } from './constants.ts';
 
 function handleResponse(response) {
   return response.text().then((text) => {
