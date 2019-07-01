@@ -17,16 +17,12 @@ export const connection = (state = initialStateObject, action) => {
       const options = {
         logMessageContent: true,
         logger: LogLevel.Information,
-        accessTokenFactory: () => action.payload.token
+        accessTokenFactory: () => action.payload
       };
 
       // create the connection instance
       const connectionCleint = new HubConnectionBuilder().withUrl('http://10.26.7.68:4000/messaging', options).build();
 
-      // event handlers, you can use these to dispatch actions to update your Redux store
-      // connection.on('OperationProgress', onNotifReceived);
-      // connection.on('UploadProgress', onNotifReceived);
-      // connection.on('DownloadProgress', onNotifReceived);
 
       // re-establish the connection if connection dropped
       connectionCleint.onclose(() => setTimeout(startSignalRConnection(connectionCleint), 5000));

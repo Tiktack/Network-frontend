@@ -1,23 +1,21 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   List, Avatar, Input, Button
 } from 'antd';
 import { InputContainer, StyledList } from './Messages.styled';
-import { getDialogs } from '../../redux/actions/dialogs.action';
-
-import { dialogSelector } from '../../redux/selectors';
 import useHandleInputEnter from '../../hooks/useHandleInputEnter';
+import { GET_DIALOG_MESSAGES } from '../../redux/actionTypes';
 
 export default function Messages(props) {
   const [inputMessage, setInputMessage] = useState('');
   const connection = useSelector(state => state.connection);
-  const dialog = useSelector(state => dialogSelector(state, props.match.params.id));
+  const dialog = useSelector(state => state.dialogs[props.match.params.id]);
   const dispatch = useDispatch();
 
-  const getTargetId = () => parseInt(props.match.params.id, 10);
+  const getTargetId = useCallback(() => props.match.params.id, [props.match.params.id]);
 
   const sendMessage = () => {
     const id = getTargetId();
@@ -25,13 +23,12 @@ export default function Messages(props) {
   };
 
   useEffect(() => {
-    connection.on('GetDialogMessages', dialogMessages => dispatch(getDialogs(dialogMessages, props.match.params.id)));
+    connection.on('GetDialogMessages', dialogMessages => dispatch({ type: GET_DIALOG_MESSAGES, payload: { array: dialogMessages, id: getTargetId() } }));
 
-    const id = getTargetId();
-    connection.invoke('GetDialogMessages', id).then(() => connection.off('GetDialogMessages'));
+    connection.invoke('GetDialogMessages', getTargetId());
 
     return () => connection.off('GetDialogMessages');
-  }, [connection]);
+  }, [connection, dispatch, getTargetId, props.match.params.id]);
 
   useHandleInputEnter('dialogInput', sendMessage);
 

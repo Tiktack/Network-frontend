@@ -21,7 +21,7 @@ export default function Dialogs() {
         {dialogList.map(x => (
           <li key={x.id}>
             <Link to={`/dialog/${x.id}`}>
-              <Outer>{x.name}</Outer>
+              <Outer>{x.username}</Outer>
             </Link>
           </li>
         ))}

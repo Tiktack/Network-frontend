@@ -1,5 +1,5 @@
 import { LOGIN_SUCCESS } from '../actionTypes/index';
-import { authenticationService } from '../../services/authentication.service';
+import { authenticationService } from '../../services/authentication.service.1';
 import { history } from '../../routing/history';
 
 const success = user => ({ type: LOGIN_SUCCESS, payload: user });

@@ -4,9 +4,7 @@ const initialStateObject = {
   username: '',
   id: 0,
   email: '',
-  pictureUrl: '',
-  name: '',
-  userIdentifier: ''
+  avatar: '',
 };
 
 export const authentication = (state = initialStateObject, action) => {

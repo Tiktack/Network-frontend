@@ -28,10 +28,10 @@ async function login(username, password) {
   };
 
   const response = await fetch(`${API_URL_BASE}${AUTHENTICATION_ENDPOINT}/login`, requestOptions);
-  const user = await handleResponse(response);
-  // store user details and jwt token in local storage to keep user logged in between page refreshes
-  localStorage.setItem('token', user.token);
-  return user;
+  console.log(response);
+  const token = response.text();
+  localStorage.setItem('token', token);
+  return token;
 }
 
 async function loginWithGoogleAccesToken(accessToken) {
