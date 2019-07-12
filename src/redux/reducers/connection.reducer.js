@@ -1,5 +1,6 @@
 import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import { LOGIN_SUCCESS } from '../actionTypes/index';
+import { API_URL_BASE } from '../../services/constants';
 
 const startSignalRConnection = connection => connection.start().catch((err) => {
   throw new Error(err);
@@ -21,8 +22,7 @@ export const connection = (state = initialStateObject, action) => {
       };
 
       // create the connection instance
-      const connectionCleint = new HubConnectionBuilder().withUrl('http://10.26.7.68:4000/messaging', options).build();
-
+      const connectionCleint = new HubConnectionBuilder().withUrl(`${API_URL_BASE}messaging`, options).build();
 
       // re-establish the connection if connection dropped
       connectionCleint.onclose(() => setTimeout(startSignalRConnection(connectionCleint), 5000));

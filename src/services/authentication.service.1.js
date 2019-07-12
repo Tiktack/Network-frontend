@@ -26,9 +26,7 @@ async function login(username, password) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email: username, password })
   };
-
   const response = await fetch(`${API_URL_BASE}${AUTHENTICATION_ENDPOINT}/login`, requestOptions);
-  console.log(response);
   const token = response.text();
   localStorage.setItem('token', token);
   return token;

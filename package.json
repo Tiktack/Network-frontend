@@ -4,8 +4,9 @@
   "main": "index.jsx",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode production"
+    "start-production": "webpack-dev-server --env.ENVIRONMENT=production --mode development",
+    "start": "webpack-dev-server --env.ENVIRONMENT=development --mode development",
+    "build": "webpack --env.ENVIRONMENT=production --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -45,6 +46,7 @@
     "antd": "^3.19.3",
     "auth0-js": "^9.10.4",
     "connected-react-router": "^6.4.0",
+    "dotenv": "^8.0.0",
     "history": "^4.9.0",
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",

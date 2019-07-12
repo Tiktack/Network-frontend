@@ -13,7 +13,7 @@ export default function Dialogs() {
 
   useEffect(() => {
     dispatch(getDialogList(auth.getAccessToken()));
-  }, []);
+  }, [auth, dispatch]);
 
   return (
     <div>
