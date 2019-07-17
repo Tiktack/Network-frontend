@@ -1,14 +1,16 @@
 import { LOGIN_SUCCESS } from '../actionTypes/index';
-import { authenticationService } from '../../services/authentication.service.1';
+import accountService from '../../services/account.service';
 import { history } from '../../routing/history';
+import { getUserDetails } from './userDetails.action';
 
 const success = user => ({ type: LOGIN_SUCCESS, payload: user });
 const failure = error => ({ type: LOGIN_FAILURE, payload: error });
 
 export const login = (username, password) => (dispatch) => {
-  authenticationService.login(username, password).then(
-    (user) => {
-      dispatch(success(user));
+  accountService.login(username, password).then(
+    (token) => {
+      dispatch(success(token));
+      dispatch(getUserDetails(token));
       history.push('/');
     },
     error => dispatch(failure(error.toString()))
@@ -16,7 +18,7 @@ export const login = (username, password) => (dispatch) => {
 };
 
 export const loginWithExternals = accessToken => (dispatch) => {
-  authenticationService.loginWithGoogleAccesToken(accessToken).then(
+  accountService.loginWithGoogleAccesToken(accessToken).then(
     (user) => {
       dispatch(success(user));
       history.push('/');
@@ -26,9 +28,21 @@ export const loginWithExternals = accessToken => (dispatch) => {
 };
 
 export const loginWithAccessToken = accessToken => (dispatch) => {
-  authenticationService.loginWithAccessToken(accessToken).then(
+  accountService.loginWithAccessToken(accessToken).then(
     (user) => {
       dispatch(success(user));
+    },
+    error => dispatch(failure(error.toString()))
+  );
+};
+
+export const register = (email, password) => (dispatch) => {
+  accountService.register(email, password).then(
+    (token) => {
+      dispatch(success(token));
+      dispatch(getUserDetails(token));
+
+      history.push('/');
     },
     error => dispatch(failure(error.toString()))
   );

@@ -6,7 +6,7 @@
   "scripts": {
     "start-production": "webpack-dev-server --env.ENVIRONMENT=production --mode development",
     "start": "webpack-dev-server --env.ENVIRONMENT=development --mode development",
-    "build": "webpack --env.ENVIRONMENT=production --mode production"
+    "build": "webpack --env.ENVIRONMENT=development --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

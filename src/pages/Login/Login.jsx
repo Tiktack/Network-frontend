@@ -3,9 +3,10 @@ import {
   Form, Icon, Input, Checkbox
 } from 'antd';
 import { useDispatch } from 'react-redux';
+import { Link as LinkRouter } from 'react-router-dom';
 import { Link, StyledButton, StyledForm } from './SignIn.styled';
 import AuthContext from '../../helpers/Context/AuthContext';
-import { login } from '../../redux/actions/autentication.action';
+import { login } from '../../redux/actions/account.action';
 
 const SignIn = (props) => {
   const auth = useContext(AuthContext);
@@ -47,11 +48,11 @@ const SignIn = (props) => {
           Log in
         </StyledButton>
         <StyledButton type="primary" onClick={() => loginWithAuth0()}>
-          Log in with Google Auth0
+          Log in with Auth0
         </StyledButton>
         Or
         {' '}
-        <a href="1">register now!</a>
+        <LinkRouter to="/registration">register now!</LinkRouter>
       </Form.Item>
     </StyledForm>
   );

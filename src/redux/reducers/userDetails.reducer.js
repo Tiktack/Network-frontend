@@ -8,10 +8,10 @@ const initialStateObject = {
   id: 0
 };
 
-export const dialogList = (state = initialStateObject, action) => {
+export const userDetails = (state = initialStateObject, action) => {
   switch (action.type) {
     case GET_USER_DETAILS: {
-      return [...action.payload];
+      return { ...action.payload };
     }
     default:
       return state;

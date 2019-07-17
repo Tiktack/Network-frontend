@@ -10,6 +10,7 @@ import WrappedNormalLoginForm from '../pages/Login';
 import WrappedEditProfileForm from '../pages/EditProfile';
 import useAuthentication from '../hooks/useAuthentication';
 import Dialogs from '../pages/Dialogs';
+import WrappedRegistration from '../pages/Registration';
 
 const Content = styled.div`
   margin-top: 3vh;
@@ -30,9 +31,10 @@ export default function Routing() {
       <Content>
         <Switch>
           <Route exact path="/dialogs" component={Dialogs} />
-          <Route exact path="/dialog/:id" component={Messages} />
+          <Route exact path="/dialogs/:id" component={Messages} />
           <Route exact path="/login" component={WrappedNormalLoginForm} />
           <Route exact path="/editprofile" component={WrappedEditProfileForm} />
+          <Route exact path="/registration" component={WrappedRegistration} />
         </Switch>
       </Content>
     </ConnectedRouter>

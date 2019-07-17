@@ -2,7 +2,7 @@
 import { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthContext from '../helpers/Context/AuthContext';
-import { loginWithAccessToken, loginWithExternals } from '../redux/actions/autentication.action';
+import { loginWithAccessToken, loginWithExternals } from '../redux/actions/account.action';
 
 const useAuthentication = () => {
   const router = useSelector(state => state.router);
