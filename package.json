@@ -44,7 +44,7 @@
     "@babel/runtime": "^7.4.5",
     "@hot-loader/react-dom": "npm:@hot-loader/react-dom",
     "antd": "^3.19.3",
-    "auth0-js": "^9.10.4",
+    "auth0-js": "^9.13.2",
     "connected-react-router": "^6.4.0",
     "history": "^4.9.0",
     "react": "^16.8.6",
